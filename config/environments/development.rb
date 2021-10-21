@@ -61,8 +61,9 @@ Rails.application.configure do
   Rails.application.configure do
       # default url
       config.action_mailer.default_url_options = {
-        protocol: 'https',
-        host: ENV["CLOUD9_APP_ROOT_URL"]
+        protocol: 'http',
+        host: 'localhost',
+        port: 3000
       }
       # mail setting
       config.action_mailer.raise_delivery_errors = true
