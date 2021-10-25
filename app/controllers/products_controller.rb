@@ -1,10 +1,17 @@
 class ProductsController < ApplicationController
+  # Railsのコールバック機能で、特定のタイミング(set_product)で
+  # show, edit, update, destroyについて、
+  # product = Product.find(params[:id])という処理を行なっていく
+  before_action :set_product, only: [:show, :edit, :update, :destroy]
   def index
     @products = Product.all
   end
 
   def show
-    @product = Product.find(params[:id])
+    # 商品に関するすべてのレビューを取得して@reviewsに代入
+    @reviews = @product.reviews
+    # 新しいレビュー作成？
+    @review = @reviews.new
   end
 
   def new
@@ -20,23 +27,24 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
     @categories = Category.all
   end
 
   def update
-    @product = Product.find(params[:id])
     @product.update(product_params)
     redirect_to(product_url(@product))
   end
 
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
     redirect_to(products_url)
   end
 
   private
+    def set_product
+      @product = Product.find(params[:id])
+    end
+
     def product_params
       params.require(:product).permit(:name, :description, :price, :category_id)
     end
