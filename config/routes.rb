@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   
   #URLをproducts/[:product_id]/reviewsとしている
   resources :products do
+    # 商品のidを含むURL（/products/:id/favorite）が使えるようになり、
+    # そのURLにアクセスするとproductsコントローラのfavoriteアクションが呼び出されるようになる
+    member do
+      get :favorite
+    end
     resources :reviews, only: [:create]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
