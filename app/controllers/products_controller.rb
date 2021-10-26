@@ -3,8 +3,12 @@ class ProductsController < ApplicationController
   # show, edit, update, destroyについて、
   # product = Product.find(params[:id])という処理を行なっていく
   before_action :set_product, only: [:show, :edit, :update, :destroy, :favorite]
+  PER = 15
+  
   def index
-    @products = Product.all
+    # kaminariメソッドの .pageと .perを使用
+    # 1ページあたりPER数表示
+    @products = Product.page(params[:page]).per(PER)
   end
 
   def show
