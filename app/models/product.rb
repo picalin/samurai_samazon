@@ -16,6 +16,16 @@ class Product < ApplicationRecord
 
   # product.likers_count
 
+  PER = 15
+
+  scope :display_list, -> (category, page) {
+    if category != "none"
+      where(category_id: category).page(page).per(PER)
+    else
+      page(page).per(PER)
+    end
+  }
+
   def reviews_new
     reviews.new
   end

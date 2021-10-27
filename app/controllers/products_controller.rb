@@ -3,12 +3,16 @@ class ProductsController < ApplicationController
   # show, edit, update, destroyについて、
   # product = Product.find(params[:id])という処理を行なっていく
   before_action :set_product, only: [:show, :edit, :update, :destroy, :favorite]
-  PER = 15
   
   def index
-    # kaminariメソッドの .pageと .perを使用
-    # 1ページあたりPER数表示
-    @products = Product.page(params[:page]).per(PER)
+    # display_listメソッドを使って条件によって表示する商品を変更
+    # display_listメソッドは「カテゴリ」と「現在のページ」の2つ引数がいる
+    @products = Product.display_list(category_params, params[:page])
+    @category = Category.request_category(category_params)
+    # すべてのカテゴリを@categoriesに代入、その後カテゴリを代入し、ビューに渡していく
+    @categories = Category.all
+    # 
+    @major_category_names = Category.major_categories
   end
 
   def show
@@ -56,5 +60,9 @@ class ProductsController < ApplicationController
 
     def product_params
       params.require(:product).permit(:name, :description, :price, :category_id)
+    end
+
+    def category_params
+      params[:category].present? ? params[:category] : "none"
     end
 end
