@@ -10,12 +10,6 @@ class Category < ApplicationRecord
     #     pluck(:major_category_name).uniq
     # end
 
-    scope :request_category, -> (category) {
-      if category != "none"
-        find(category.to_i)
-      else
-        ""
-      end
-    }
+    scope :request_category, -> (category) { find(category.to_i)}
     # Ex:- scope :active, -> {where(:active => true)}
 end
