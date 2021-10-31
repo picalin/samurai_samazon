@@ -59,3 +59,6 @@ class Product < ApplicationRecord
     reviews.new
   end
 end
+
+# Scope文
+# 特定のSQL文をメソッド化することができる。

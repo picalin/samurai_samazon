@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # get 'users/edit'
+  # get 'users/update'
+  # get 'users/mypage'
   devise_for :users, :controllers => {
     :registrations => 'users/registrations',
     :sessions => 'users/sessions',
@@ -13,6 +16,18 @@ Rails.application.routes.draw do
     get "verify", :to => "users/registrations#verify"
     get "login", :to => "users/sessions#new"
     delete "logout", :to => "users/sessions#destroy"
+  end
+
+  # ユーザー情報の編集に使うルーティングを以下の通り設定
+  resources :users, only: [:edit, :update] do
+    # リソース全体に対するアクションを定義するためcollectionを使用。idを使わない
+    collection do
+      get "mypage", :to => "users#mypage"
+      get "mypage/edit", :to => "users#edit"
+      get "mypage/address/edit", :to => "users#edit_address"
+      put "mypage", :to => "users#update"
+    end
+    
   end
   
   #URLをproducts/[:product_id]/reviewsとしている
