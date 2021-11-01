@@ -31,6 +31,11 @@ class UsersController < ApplicationController
     
   end
 
+  #以下のコードユーザーがお気に入りに追加したすべての商品を@favoriteに代入しています。
+  def favorite
+    @favorites = @user.likees(Product)
+  end
+
   private
     def set_user
       @user = current_user
