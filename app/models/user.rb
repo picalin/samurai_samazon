@@ -25,5 +25,17 @@ class User < ApplicationRecord
   # end
 
   # user.likees_count
+  
+  #ユーザーから送信されたpasswordとpassword_confirmationが一致するかどうかを確認し、一致する場合のみパスワードを暗号化してデータベースに保存
+  def update_passsword(params, *options)
+    if params[:password].blank?
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+    end
+
+    result = update(params, *options)
+    clean_up_passwords
+    result
+  end
 
 end
