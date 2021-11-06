@@ -36,6 +36,11 @@ class Product < ApplicationRecord
     display_list(page)
   }
 
+  scope :search_for_id_and_name, -> (keyword) {
+    where("name LIKE ?", "%#{keyword}%").
+    or(where("id LIKE ?", "%#{keyword}%"))
+  }
+
   scope :sort_products, -> (sort_order, page) {
     on_category(sort_order[:sort_category]).
     sort_order(sort_order[:sort]).

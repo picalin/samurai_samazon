@@ -11,9 +11,10 @@ Rails.application.routes.draw do
     delete "dashboard/logout", :to => "admins/sessions#destroy"
   end
   
-  # 管理者カテゴリ画面のルーティング
+  # 管理者画面のルーティング
   namespace :dashboard do
     resources :categories, except: [:new]
+    resources :products, except: [:show]
   end
 
   devise_for :users, :controllers => {
