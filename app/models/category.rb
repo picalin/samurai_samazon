@@ -1,4 +1,5 @@
 class Category < ApplicationRecord
+    belongs_to :major_category
     has_many :products, dependent: :destroy
 
     # PER = 15 # productモデルでも同じ定数を使っているため使用しない。代わりに以下のDisplayListに記載

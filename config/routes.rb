@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   
   # 管理者画面のルーティング
   namespace :dashboard do
+    resources :users, only: [:index, :destroy]
+    resources :major_categories, except: [:new]
     resources :categories, except: [:new]
     resources :products, except: [:show]
   end

@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :reviews # Userはreviewを複数持つ
+  extend DisplayList
+  extend SwitchFlg
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -37,5 +39,10 @@ class User < ApplicationRecord
     clean_up_passwords
     result
   end
+
+  #検索するときのメソッド
+  scope :search_information, -> (keyword) {
+    where("name LIKE :keyword OR id LIKE :keyword OR email LIKE :keyword OR address LIKE :keyword OR postal_code LIKE :keyword OR phone LIKE :keyword", keyword: "%#{keyword}%")
+  }
 
 end
