@@ -16,9 +16,7 @@ class Product < ApplicationRecord
 
   # product.likers_count
 
-  PER = 15
-
-  scope :display_list, -> (page) { page(page).per(PER) }
+  extend DisplayList
   # scope :category_products, -> (category, page) {
   #   where(category_id: category).page(page).per(PER)
   # }

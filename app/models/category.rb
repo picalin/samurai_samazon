@@ -1,5 +1,8 @@
 class Category < ApplicationRecord
-    has_many :products
+    has_many :products, dependent: :destroy
+
+    # PER = 15 # productモデルでも同じ定数を使っているため使用しない。代わりに以下のDisplayListに記載
+    extend DisplayList
 
     # scopeを使ってメソッド定義を行っている。
     # すべてのカテゴリのデータの中からmajor_category_nameのカラムのみを取得しています。
