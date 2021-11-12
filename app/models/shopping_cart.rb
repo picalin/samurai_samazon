@@ -18,6 +18,10 @@ class ShoppingCart < ApplicationRecord
   scope :sort_list, -> {
     {"日別": "daily", "月別": "month"}
   }
+  
+# 送料
+  CARRIAGE=800
+  FREE_SHIPPING=0
 
 #   メソッドの先頭にselfをつけることでクラスメソッドになる
   def self.get_monthly_sales
@@ -74,5 +78,14 @@ class ShoppingCart < ApplicationRecord
 
     def tax_pct
         0
+    end
+    
+    # 送料のdef
+    # 
+    def shipping_cost
+      products_ids = ShoppingCartItem.user_cart_item_ids(self.id)
+      products_carriage_list = Product.check_products_carriage_list(product_ids)
+      products_carriage_list.include?(true) ? Money.new(CARRIAGE*100)
+                                            : Money.new(FREE_SHIPPING)
     end
 end
