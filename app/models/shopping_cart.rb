@@ -83,9 +83,9 @@ class ShoppingCart < ApplicationRecord
     # 送料のdef
     # 
     def shipping_cost
-      products_ids = ShoppingCartItem.user_cart_item_ids(self.id)
+      product_ids = ShoppingCartItem.user_cart_item_ids(self.id)
       products_carriage_list = Product.check_products_carriage_list(product_ids)
-      products_carriage_list.include?(true) ? Money.new(CARRIAGE*100)
+      products_carriage_list.include?(true) ? Money.new(CARRIAGE * 100)
                                             : Money.new(FREE_SHIPPING)
     end
 end
