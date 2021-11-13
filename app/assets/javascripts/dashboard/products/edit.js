@@ -7,4 +7,4 @@ function handleImage(image) {
     };
 console.log(image);
 reader.readAsDataURL(image[0]);
-};
+}
