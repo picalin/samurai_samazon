@@ -15,6 +15,9 @@ class ShoppingCart < ApplicationRecord
 #   ある月または日に購入されたカートの一覧を取得するスコープ
   scope :search_bought_carts_by_month, -> (month) { bought_carts.where(updated_at: month.all_month) }
   scope :search_bought_carts_by_day, -> (day) { bought_carts.where(updated_at: day.all_day) }
+  scope :search_carts_by_ids, -> (ids) { where("id LIKE ? ", "%#{ids}%") }
+  scope :search_bought_carts_by_ids, -> (ids) { bought_carts.search_carts_by_ids(ids) }
+  
   scope :sort_list, -> {
     {"日別": "daily", "月別": "month"}
   }
