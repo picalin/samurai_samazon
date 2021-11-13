@@ -50,8 +50,9 @@ class Dashboard::ProductsController < ApplicationController
     def set_product
         @product = Product.find(params[:id])
     end
-
+    
+    # ストロングパラメータ
     def product_params
-        params.require(:product).permit(:name, :description, :price, :recommended_flag, :carriage_flag, :category_id)
+        params.require(:product).permit(:name, :description, :price, :recommended_flag, :carriage_flag, :category_id, :image)
     end
 end

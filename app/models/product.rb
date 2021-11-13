@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   belongs_to :category
   has_many :reviews #reviewを複数持っている
   acts_as_likeable #お気に入りをされる側のモデルに追加
+  has_one_attached :image #Active Strage用の設定を追加
 
   # そのユーザーが「いいね」をつけていればtrueを返し、つけていなければfalseを返す。
   # product.liked_by?(user)
