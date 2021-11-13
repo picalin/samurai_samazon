@@ -29,7 +29,7 @@
       <% if @product.image.attached? %>
         <%= image_tag @product.image, id: "product-image-preview", class: "img-fluid w-25" %>
       <% else %>
-        <img src="#" id="product-image-preview" class="">
+        <img src="/images/dummy.png" id="product-image-preview" class="mg-fluid w-25">
       <% end %>
       <div class="d-flex flex-column ml-2">
         <small class="mb-3">600px×600px推奨。<br>商品の魅力が伝わる画像をアップロードしてください</small>
