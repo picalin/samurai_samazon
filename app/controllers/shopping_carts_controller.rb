@@ -23,9 +23,18 @@ class ShoppingCartsController < ApplicationController
 
   def destroy
     #注文済みフラグをtrueにして、注文処理を行い、
-    #その後カーｓトのデータをデータベースに保存してリダイレクト
+    #その後カートのデータをデータベースに保存してリダイレクト
     @user_cart.buy_flag = true
     @user_cart.save
+    
+    # 購入時に決済できるようにする
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp::Charge.create(
+                          :customer => current_user.token,
+                          :amount => @user_cart.total.to_i,
+                          :currency => 'jpy'
+                        )
+    
     redirect_to cart_users_url
   end
 
